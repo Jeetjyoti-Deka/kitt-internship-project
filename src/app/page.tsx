@@ -13,6 +13,7 @@ import Image from "next/image";
 import React from "react";
 import { FlightDatePicker } from "@/components/FlightDatePicker";
 import DottedLine from "@/components/DottedLine";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -44,9 +45,14 @@ export default function Home() {
           </div>
         </div>
         <div className="flex justify-end">
-          <Button className="flex items-center gap-x-2 bg-green-900 px-10 py-[20px] text-sm">
-            <Search className="w-4 h-4 mb-[2px]" />
-            Search Flights
+          <Button
+            className="flex items-center gap-x-2 bg-green-900 px-10 py-[20px] text-sm"
+            asChild
+          >
+            <Link href="/search">
+              <Search className="w-4 h-4 mb-[2px]" />
+              Search Flights
+            </Link>
           </Button>
         </div>
       </div>

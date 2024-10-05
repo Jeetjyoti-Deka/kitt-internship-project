@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { transform } from "typescript";
 
 const config: Config = {
   darkMode: ["class"],
@@ -66,9 +67,19 @@ const config: Config = {
             transform: "translateY(0)",
           },
         },
+        "bar-loading": {
+          "0%": { transform: "translateX(0) scaleX(0)" },
+          "50%": {
+            transform: "translateX(50%) scaleX(0.3)",
+          },
+          "100%": {
+            transform: "translateX(100%) scaleX(0) ",
+          },
+        },
       },
       animation: {
         slidein: "slidein 1s linear",
+        "bar-loading": "bar-loading 3s linear infinite",
       },
     },
   },
