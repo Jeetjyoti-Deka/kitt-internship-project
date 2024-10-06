@@ -12,8 +12,8 @@ const DottedLine = ({
       <svg height="400" width="4" xmlns="http://www.w3.org/2000/svg">
         <path
           stroke={color}
-          stroke-width="1"
-          stroke-dasharray="10,7"
+          strokeWidth="1"
+          strokeDasharray="10,7"
           d="M2 0 l0 400"
         />
       </svg>

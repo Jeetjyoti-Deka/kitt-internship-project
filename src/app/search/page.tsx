@@ -1,10 +1,24 @@
+"use client";
+
+import LoadingCard from "@/components/LoadingCard";
+import LoadingSkeletons from "@/components/LoadingSkeletons";
 import { Separator } from "@/components/ui/separator";
 import { Search, X } from "lucide-react";
 import Link from "next/link";
+import React from "react";
+import { useEffect, useState } from "react";
 
 const SearchPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 6500);
+  }, []);
+
   return (
-    <div>
+    <div className="h-full">
       <div className="flex items-center justify-between">
         <div className="py-5">
           <FlightMenu />
@@ -17,11 +31,25 @@ const SearchPage = () => {
         </Link>
       </div>
       <Separator className="absolute inset-x-0 h-px" />
-      {false && <LoadingBar />}
+      {loading && <LoaderComponents />}
     </div>
   );
 };
 export default SearchPage;
+
+const LoaderComponents = () => {
+  return (
+    <>
+      <LoadingBar />
+      <div className="mt-14 h-[calc(100%-90px-56px)] overflow-y-hidden">
+        <LoadingSkeletons />
+      </div>
+      <div className="absolute top-80 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <LoadingCard />
+      </div>
+    </>
+  );
+};
 
 const LoadingBar = () => {
   return (
