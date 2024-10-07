@@ -4,12 +4,12 @@ import LoadingCard from "@/components/LoadingCard";
 import LoadingSkeletons from "@/components/LoadingSkeletons";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeftRight, Clock, Search, X } from "lucide-react";
+import { Clock, Search, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { useEffect, useState } from "react";
 
+import FlightSelectRow from "@/components/FlightSelectRow";
 import {
   Sheet,
   SheetClose,
@@ -18,9 +18,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import FlightSelect from "@/components/FlightSelect";
-import FlightDatePicker from "@/components/FlightDatePicker";
 import { useStore } from "@/store/store";
+import { format } from "date-fns";
 
 const SearchPage = () => {
   const [loading, setLoading] = useState(true);
@@ -294,16 +293,7 @@ const LoadingBar = () => {
 };
 
 const FlightMenu = () => {
-  const {
-    setFrom,
-    from,
-    to,
-    setTo,
-    fromDate,
-    setFromDate,
-    returnDate,
-    setReturnDate,
-  } = useStore();
+  const { from, to, fromDate, returnDate } = useStore();
 
   return (
     <Sheet>
@@ -311,18 +301,24 @@ const FlightMenu = () => {
         <div className="rounded-full h-10 border border-slate-300 flex items-center justify-around pl-3 py-6 pr-1 select-none cursor-pointer">
           <div className="flex items-center justify-start gap-x-1 max-w-[200px]">
             <span className="font-semibold">CDG</span>
-            <p className="line-clamp-1">
-              Paris Charles De Gujdffan dfa d vadvad
-            </p>
+            <p className="line-clamp-1">{from}</p>
           </div>
           <Separator orientation="vertical" className="h-7 mx-2" />
           <div className="flex items-center justify-start gap-x-1 max-w-[200px]">
-            <span className="font-semibold">CDG</span>
-            <p className="line-clamp-1">Paris Charles De Gujdffan</p>
+            <span className="font-semibold">DXB</span>
+            <p className="line-clamp-1">{to}</p>
           </div>
           <Separator orientation="vertical" className="h-7 mx-2" />
           <div className="flex items-center justify-start gap-x-1">
-            <p className="font-semibold text-nowrap">Jun 25 - Jul 2</p>
+            {fromDate && returnDate ? (
+              <p className="font-semibold text-nowrap text-[16px]">
+                {format(fromDate, "MMM d")} - {format(returnDate, "MMM d")}
+              </p>
+            ) : (
+              <p className="font-semibold text-nowrap text-[16px]">
+                Jun 25 - Jul 2
+              </p>
+            )}
           </div>
           <Separator orientation="vertical" className="h-7 mx-2" />
           <div className="bg-slate-100 rounded-full p-[10px]">
@@ -332,39 +328,7 @@ const FlightMenu = () => {
       </SheetTrigger>
       <SheetContent side="top" showBackBtn={false} className="h-[233px]">
         <div className="max-w-[1057px] h-full mx-auto flex flex-col justify-end gap-y-6 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <FlightSelect
-                placeholder="where from ?"
-                city={from}
-                setCity={setFrom}
-              />
-            </div>
-            <div className="flex items-center justify-center rounded-full bg-slate-200 p-3">
-              <ArrowLeftRight className="w-4 h-4 text-slate-800" />
-            </div>
-            <div>
-              <FlightSelect
-                placeholder="where to ?"
-                city={to}
-                setCity={setTo}
-              />
-            </div>
-            <div>
-              <FlightDatePicker
-                placeholder="Departure"
-                date={fromDate}
-                setDate={setFromDate}
-              />
-            </div>
-            <div>
-              <FlightDatePicker
-                placeholder="Return"
-                date={returnDate}
-                setDate={setReturnDate}
-              />
-            </div>
-          </div>
+          <FlightSelectRow />
           <div className="flex justify-end">
             <SheetClose asChild>
               <Button
