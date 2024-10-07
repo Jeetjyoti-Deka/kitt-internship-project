@@ -4,7 +4,7 @@ import LoadingCard from "@/components/LoadingCard";
 import LoadingSkeletons from "@/components/LoadingSkeletons";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Clock, Divide, Search, X } from "lucide-react";
+import { ArrowLeftRight, Clock, Search, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -12,12 +12,14 @@ import { useEffect, useState } from "react";
 
 import {
   Sheet,
+  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import FlightSelect from "@/components/FlightSelect";
+import FlightDatePicker from "@/components/FlightDatePicker";
 
 const SearchPage = () => {
   const [loading, setLoading] = useState(true);
@@ -292,24 +294,64 @@ const LoadingBar = () => {
 
 const FlightMenu = () => {
   return (
-    <div className="rounded-full h-10 border border-slate-300 flex items-center justify-around pl-3 py-6 pr-1 select-none cursor-pointer">
-      <div className="flex items-center justify-start gap-x-1 max-w-[200px]">
-        <span className="font-semibold">CDG</span>
-        <p className="line-clamp-1">Paris Charles De Gujdffan dfa d vadvad</p>
-      </div>
-      <Separator orientation="vertical" className="h-7 mx-2" />
-      <div className="flex items-center justify-start gap-x-1 max-w-[200px]">
-        <span className="font-semibold">CDG</span>
-        <p className="line-clamp-1">Paris Charles De Gujdffan</p>
-      </div>
-      <Separator orientation="vertical" className="h-7 mx-2" />
-      <div className="flex items-center justify-start gap-x-1">
-        <p className="font-semibold text-nowrap">Jun 25 - Jul 2</p>
-      </div>
-      <Separator orientation="vertical" className="h-7 mx-2" />
-      <div className="bg-slate-100 rounded-full p-[10px]">
-        <Search className="w-4 h-4 text-[#003E39]" />
-      </div>
-    </div>
+    <Sheet>
+      <SheetTrigger asChild>
+        <div className="rounded-full h-10 border border-slate-300 flex items-center justify-around pl-3 py-6 pr-1 select-none cursor-pointer">
+          <div className="flex items-center justify-start gap-x-1 max-w-[200px]">
+            <span className="font-semibold">CDG</span>
+            <p className="line-clamp-1">
+              Paris Charles De Gujdffan dfa d vadvad
+            </p>
+          </div>
+          <Separator orientation="vertical" className="h-7 mx-2" />
+          <div className="flex items-center justify-start gap-x-1 max-w-[200px]">
+            <span className="font-semibold">CDG</span>
+            <p className="line-clamp-1">Paris Charles De Gujdffan</p>
+          </div>
+          <Separator orientation="vertical" className="h-7 mx-2" />
+          <div className="flex items-center justify-start gap-x-1">
+            <p className="font-semibold text-nowrap">Jun 25 - Jul 2</p>
+          </div>
+          <Separator orientation="vertical" className="h-7 mx-2" />
+          <div className="bg-slate-100 rounded-full p-[10px]">
+            <Search className="w-4 h-4 text-[#003E39]" />
+          </div>
+        </div>
+      </SheetTrigger>
+      <SheetContent side="top" showBackBtn={false} className="h-[233px]">
+        <div className="max-w-[1057px] h-full mx-auto flex flex-col justify-end gap-y-6 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <FlightSelect placeholder="where from ?" />
+            </div>
+            <div className="flex items-center justify-center rounded-full bg-slate-200 p-3">
+              <ArrowLeftRight className="w-4 h-4 text-slate-800" />
+            </div>
+            <div>
+              <FlightSelect placeholder="where to ?" />
+            </div>
+            <div>
+              <FlightDatePicker placeholder="Departure" />
+            </div>
+            <div>
+              <FlightDatePicker placeholder="Return" />
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <SheetClose asChild>
+              <Button
+                className="flex items-center gap-x-2 bg-green-900 px-10 py-[20px] text-sm"
+                asChild
+              >
+                <Link href="/search">
+                  <Search className="w-4 h-4 mb-[2px]" />
+                  Search Flights
+                </Link>
+              </Button>
+            </SheetClose>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };

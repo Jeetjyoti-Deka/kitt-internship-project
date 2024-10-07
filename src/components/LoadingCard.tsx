@@ -62,6 +62,7 @@ const LoadingCard = () => {
         alt="paper plane"
         height={100}
         width={100}
+        unoptimized
       />
       <div className="flex flex-col gap-y-2">
         <LoadingStage

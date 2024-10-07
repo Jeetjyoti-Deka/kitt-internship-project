@@ -13,7 +13,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function FlightDatePicker({ placeholder }: { placeholder: string }) {
+export default function FlightDatePicker({
+  placeholder,
+}: {
+  placeholder: string;
+}) {
   const [date, setDate] = React.useState<Date>();
 
   return (
