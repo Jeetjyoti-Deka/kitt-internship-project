@@ -11,8 +11,7 @@ import Image from "next/image";
 import data from "../../data";
 import { useState } from "react";
 import { ChevronDownIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useStore } from "@/store/store";
+import { cn, getAirportFromCode } from "@/lib/utils";
 
 const FlightSelect = ({
   placeholder,
@@ -27,7 +26,10 @@ const FlightSelect = ({
 
   return (
     <Select
-      onValueChange={(v) => setCity(v)}
+      onValueChange={(v) => {
+        const airport = getAirportFromCode(v);
+        setCity(airport.name);
+      }}
       open={open}
       onOpenChange={(o) => setOpen(o)}
       value={city}
@@ -49,7 +51,7 @@ const FlightSelect = ({
           <SelectValue placeholder={placeholder}>
             <div className="flex flex-col items-start transition-all">
               <span className="text-[12px] text-slate-500">{placeholder}</span>
-              <p>{city}</p>
+              <p className="line-clamp-1 max-w-[200px]">{city}</p>
             </div>
           </SelectValue>
         </div>
@@ -61,7 +63,7 @@ const FlightSelect = ({
       </SelectTrigger>
       <SelectContent>
         {data.airports.map((item) => (
-          <SelectItem key={item.code} value={item.city}>
+          <SelectItem key={item.code} value={item.code}>
             {item.city}
           </SelectItem>
         ))}
