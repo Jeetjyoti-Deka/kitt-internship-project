@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Select,
   SelectContent,
@@ -7,24 +9,50 @@ import {
 } from "@/components/ui/select";
 import Image from "next/image";
 import data from "../../data";
+import { useState } from "react";
+import { ChevronDownIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const FlightSelect = ({ placeholder }: { placeholder: string }) => {
+  const [city, setCity] = useState("");
+  const [open, setOpen] = useState(false);
+
   return (
-    <Select>
-      <SelectTrigger className="w-[267px] py-5">
-        <div className="flex items-center justify-center gap-x-2">
-          <Image
-            src="/menu-circle.svg"
-            width={16}
-            height={16}
-            alt="circle icon"
-          />
-          <SelectValue placeholder={placeholder} />
+    <Select
+      onValueChange={(v) => setCity(v)}
+      open={open}
+      onOpenChange={(o) => setOpen(o)}
+    >
+      <SelectTrigger
+        className={cn("w-[267px] py-7 focus:ring-0 transition-all", {
+          "ring-1 ring-green-900": open,
+        })}
+      >
+        <div className="flex items-center justify-center gap-x-2 ">
+          {!city && (
+            <Image
+              src="/menu-circle.svg"
+              width={16}
+              height={16}
+              alt="circle icon"
+            />
+          )}
+          <SelectValue placeholder={placeholder}>
+            <div className="flex flex-col items-start transition-all">
+              <span className="text-[12px] text-slate-500">{placeholder}</span>
+              <p>{city}</p>
+            </div>
+          </SelectValue>
         </div>
+        <ChevronDownIcon
+          className={cn("h-4 w-4 opacity-50 transition-all", {
+            "rotate-180": open,
+          })}
+        />
       </SelectTrigger>
       <SelectContent>
         {data.airports.map((item) => (
-          <SelectItem key={item.code} value={item.code}>
+          <SelectItem key={item.code} value={item.city}>
             {item.city}
           </SelectItem>
         ))}

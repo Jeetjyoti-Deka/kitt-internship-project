@@ -26,7 +26,7 @@ export default function FlightDatePicker({
         <Button
           variant={"outline"}
           className={cn(
-            "w-[177px] justify-start text-left font-normal py-5",
+            "w-[177px] justify-start text-left font-normal py-7",
             !date && "text-muted-foreground"
           )}
         >
