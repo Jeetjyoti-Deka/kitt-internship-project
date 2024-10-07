@@ -15,7 +15,7 @@ export default function Home() {
         <DottedLine className="left-72" />
         <DottedLine className="right-10" />
         <DottedLine className="right-80" />
-        <div className="bg-gray-400 rounded-sm w-20 flex items-center justify-center font-medium">
+        <div className="bg-gray-100 py-1 px-8 w-fit rounded-sm flex items-center justify-center font-medium">
           Flights
         </div>
         <FlightSelectRow />
