@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ArrowLeftRight, Search } from "lucide-react";
 
@@ -6,8 +8,20 @@ import FlightDatePicker from "@/components/FlightDatePicker";
 import DottedLine from "@/components/DottedLine";
 import Link from "next/link";
 import FlightSelect from "@/components/FlightSelect";
+import { useStore } from "@/store/store";
 
 export default function Home() {
+  const {
+    setFrom,
+    from,
+    to,
+    setTo,
+    fromDate,
+    setFromDate,
+    returnDate,
+    setReturnDate,
+  } = useStore();
+
   return (
     <div className="flex flex-col items-center justify-center h-[70%]">
       <h1 className="font-light text-4xl mb-4">Good Morning, Brian</h1>
@@ -21,19 +35,31 @@ export default function Home() {
         </div>
         <div className="flex items-center justify-between">
           <div>
-            <FlightSelect placeholder="where from ?" />
+            <FlightSelect
+              placeholder="where from ?"
+              city={from}
+              setCity={setFrom}
+            />
           </div>
           <div className="flex items-center justify-center rounded-full bg-slate-200 p-3">
             <ArrowLeftRight className="w-4 h-4 text-slate-800" />
           </div>
           <div>
-            <FlightSelect placeholder="where to ?" />
+            <FlightSelect placeholder="where to ?" city={to} setCity={setTo} />
           </div>
           <div>
-            <FlightDatePicker placeholder="Departure" />
+            <FlightDatePicker
+              placeholder="Departure"
+              date={fromDate}
+              setDate={setFromDate}
+            />
           </div>
           <div>
-            <FlightDatePicker placeholder="Return" />
+            <FlightDatePicker
+              placeholder="Return"
+              date={returnDate}
+              setDate={setReturnDate}
+            />
           </div>
         </div>
         <div className="flex justify-end">

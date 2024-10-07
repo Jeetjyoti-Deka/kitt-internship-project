@@ -12,9 +12,17 @@ import data from "../../data";
 import { useState } from "react";
 import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useStore } from "@/store/store";
 
-const FlightSelect = ({ placeholder }: { placeholder: string }) => {
-  const [city, setCity] = useState("");
+const FlightSelect = ({
+  placeholder,
+  city,
+  setCity,
+}: {
+  placeholder: string;
+  city: string;
+  setCity: (city: string) => void;
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,6 +30,7 @@ const FlightSelect = ({ placeholder }: { placeholder: string }) => {
       onValueChange={(v) => setCity(v)}
       open={open}
       onOpenChange={(o) => setOpen(o)}
+      value={city}
     >
       <SelectTrigger
         className={cn("w-[267px] py-7 focus:ring-0 transition-all", {

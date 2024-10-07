@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/sheet";
 import FlightSelect from "@/components/FlightSelect";
 import FlightDatePicker from "@/components/FlightDatePicker";
+import { useStore } from "@/store/store";
 
 const SearchPage = () => {
   const [loading, setLoading] = useState(true);
@@ -293,6 +294,17 @@ const LoadingBar = () => {
 };
 
 const FlightMenu = () => {
+  const {
+    setFrom,
+    from,
+    to,
+    setTo,
+    fromDate,
+    setFromDate,
+    returnDate,
+    setReturnDate,
+  } = useStore();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -322,19 +334,35 @@ const FlightMenu = () => {
         <div className="max-w-[1057px] h-full mx-auto flex flex-col justify-end gap-y-6 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <FlightSelect placeholder="where from ?" />
+              <FlightSelect
+                placeholder="where from ?"
+                city={from}
+                setCity={setFrom}
+              />
             </div>
             <div className="flex items-center justify-center rounded-full bg-slate-200 p-3">
               <ArrowLeftRight className="w-4 h-4 text-slate-800" />
             </div>
             <div>
-              <FlightSelect placeholder="where to ?" />
+              <FlightSelect
+                placeholder="where to ?"
+                city={to}
+                setCity={setTo}
+              />
             </div>
             <div>
-              <FlightDatePicker placeholder="Departure" />
+              <FlightDatePicker
+                placeholder="Departure"
+                date={fromDate}
+                setDate={setFromDate}
+              />
             </div>
             <div>
-              <FlightDatePicker placeholder="Return" />
+              <FlightDatePicker
+                placeholder="Return"
+                date={returnDate}
+                setDate={setReturnDate}
+              />
             </div>
           </div>
           <div className="flex justify-end">

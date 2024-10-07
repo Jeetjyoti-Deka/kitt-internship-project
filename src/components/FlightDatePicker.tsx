@@ -15,11 +15,13 @@ import {
 
 export default function FlightDatePicker({
   placeholder,
+  date,
+  setDate,
 }: {
   placeholder: string;
+  date: Date | undefined;
+  setDate: (d: Date | undefined) => void;
 }) {
-  const [date, setDate] = React.useState<Date>();
-
   return (
     <Popover>
       <PopoverTrigger asChild>
